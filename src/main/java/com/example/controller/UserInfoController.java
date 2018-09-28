@@ -24,7 +24,7 @@ public class UserInfoController {
     @RequestMapping(value="/userAdd", method = RequestMethod.POST)
     public String userAdd(User user){
     	Result<String> result=testService.userAdd(user);
-        return "userInfoAdd";
+        return "userInfoAdd111";
     }
 
     /**
