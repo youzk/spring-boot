@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.example.dao.test1.TestDao">
+    
+    <resultMap id="BaseResultMap" type="com.example.domain.User">
+        <!--主键 -->
+        <id column="uid" property="uid" jdbcType="INTEGER"/> 
+        <result column="username" property="userName" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="password" property="passWord" jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+    </resultMap>
+    
+    <sql id="Base_Column_List">
+        uid,username,name,password,salt,state
+    </sql>
+    
+    <!-- 通过用户名获取此用户 -->
+    <select id="getUserByUserName"  parameterType="java.lang.String" resultType="com.example.domain.User">
+    select uid,userName,name,passWord,salt,state from user where userName=#{userName}
+    </select>
+    
+    <!-- 根据用户ID查询所有角色 -->
+    <select id="getRoleListByUid"  parameterType="java.lang.Integer" resultType="com.example.domain.Role">
+    select  b.* from user_role a join role b on a.roleId=b.id where a.uid=#{userId}
+    </select>
+    
+    
+    <!-- 根据用户ID查询所有权限 -->
+    <select id="getPermissionListByUid"  parameterType="java.lang.Integer" resultType="com.example.domain.Permission">
+    select DISTINCT c.* from user_role a join role_permission b on a.roleId=b.roleId join permission c on b.permId=c.id where a.uid=#{userId}
+    </select>
+ 
+    <!-- 添加用户 -->
+    <insert id="userAdd"  parameterType="com.example.domain.User" >
+    insert into user(userName,name,passWord,salt,state) values(#{userName},#{name},#{passWord},#{salt},#{state})
+    </insert>
+</mapper>

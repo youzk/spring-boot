@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<title>登录</title>
+</head>
+<body>
+	错误信息：
+	<h4 id="error"></h4>
+	<form>
+		<p>
+			账号：<input type="text" name="username" id="username" value="" />
+		</p>
+		<p>
+			密码：<input type="text" name="password" id="password" value="" />
+		</p>
+		<p>
+			<input type="button" id="ajaxLogin" value="登录" />
+		</p>
+		<P><input type="checkbox" id="rememberMe"  />记住我</P>
+	</form>
+</body>
+<script>
+	$("#ajaxLogin").click(function() {
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var status = $("#rememberMe").is(":checked");//选中返回true，没选中返回false
+		$.post("/ajaxLogin", {
+			"username" : username,
+			"password" : password,
+			"status":status
+		}, function(result) {
+			if (result.result == 200) {
+				location.href = "/index";
+			} else {
+				$("#error").html(result.desc);
+			}
+		});
+	});
+</script>
+</html>
