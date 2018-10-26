@@ -14,6 +14,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class TestApplication {
 
 	public static void main(String[] args) {
+		System.out.println("The service to start.");
 		SpringApplication.run(TestApplication.class, args);
+		System.out.println("The service has started.");
 	}
 }

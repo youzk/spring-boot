@@ -27,11 +27,16 @@ public enum  ResponseEnum {
 	FAIL_SYS_ERROR(500,  "系统异常，系统不支持该请求方式"),
 	FAIL_SERVER_ERROR(409,"系统业务异常"),
 	FAIL_ADD(501,"添加失败"),
+	EMPTY_FILE(502,"空文件!"),
 	
 	SMS_MAX_COUNT(101, "用户超出发送次数"),
 	SMS_EXISTS(102,  "短信未失效"),
 	SMS_FAIL(103,  "短信发送失败"),
-	SMS_OK(100,"短信发送成功");
+	SMS_OK(100,"短信发送成功"),
+	FAIL_ARGUMENT_ERROR(20002,  "非法参数异常"),
+	FAIL_CONSTRAINT_ERROR(20003,  "违反约束异常"),
+	FAIL_INVALID_ERROR(20004,  "无效的请求方式"),
+	FAIL_DATABASE_ERROR(20005,  "数据库操作异常");
 	private final int result;
     private final String desc;
     

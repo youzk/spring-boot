@@ -54,7 +54,6 @@ public class HomeController {
     @ResponseBody
     public Result<String> submitLogin(String username, String password,boolean status) {
     	Result<String> result=new Result<>();
-    	System.out.println(username);
     	try {
 			UsernamePasswordToken token = new UsernamePasswordToken(username,password,status);//第三个参数设置是否使用remember me功能
     		SecurityUtils.getSubject().login(token);

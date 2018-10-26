@@ -1,11 +1,17 @@
 package com.example.service.impl;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.codec.binary.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.common.ResponseEnum;
 import com.example.common.Result;
@@ -13,6 +19,7 @@ import com.example.dao.test1.TestDao;
 import com.example.dao.test2.Test2Dao;
 import com.example.domain.User;
 import com.example.service.TestService;
+import com.example.util.OSSUploadUtil;
 import com.example.util.PasswordEntrypt;
 
 @Service
@@ -67,5 +74,44 @@ public class TestServiceImpl implements TestService{
 		return result;	
     }
 	
+	/**
+	 * 上传文件处理
+	 * com.example.service.impl 
+	 * 方法名：upload
+	 * 创建人：yzk 
+	 * 时间：2018年9月29日-下午4:38:15 
+	 * @param file
+	 * @return
+	 * @see com.example.service.TestService#upload(org.springframework.web.multipart.MultipartFile)
+	 * @exception 
+	 * @since  1.0.0
+	 */
+	@Override
+	public Result<String> upload(MultipartFile file){
+		Result<String> result=new Result<>();
+		 if (file.isEmpty()) {
+			 result.setStatus(false);
+			 result.setResult(ResponseEnum.EMPTY_FILE.result());
+			 result.setDesc(ResponseEnum.EMPTY_FILE.desc());
+			 return result;
+	     }
+	     try {
+	            // Get the file and save it somewhere
+	            byte[] bytes = file.getBytes();
+	            Path path = Paths.get("D://upload//"+ file.getOriginalFilename());
+	            Files.write(path, bytes);
+                File localFile = new File("D://upload//"+ file.getOriginalFilename());
+                String url=OSSUploadUtil.uploadFile(localFile, "txt");//OSS单文件上传 
+                System.out.println(url);
+                File downFile = new File("D://upload1//yzk.txt");
+                OSSUploadUtil.downFile(downFile, "yt/test/093F6A035001448BAF44B34239875487.txt");
+	     } catch (IOException e) {
+			 result.setStatus(false);
+			 result.setResult(30001);
+			 result.setDesc(e.getMessage());
+	     }
+
+	     return result;
+	}
 	
 }

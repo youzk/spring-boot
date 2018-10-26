@@ -12,14 +12,14 @@ public class Result<T>{
 
 	public boolean status = true;
 
-	public String version = "1.0.0";
+/*	public String version = "1.0.0";*/
 	
 	private Integer result = ResponseEnum.SUCCESS.result();// 返回码
 
 	private String desc = ResponseEnum.SUCCESS.desc();// 描述
 	private T data;
 
-	private String verificationCode; 
+/*	private String verificationCode;*/ 
 	public Result() {
 
 	}
@@ -34,7 +34,7 @@ public class Result<T>{
     	 this.result = res.result();
          this.desc = res.desc();
          this.status = status;
-         this.version = version;
+/*         this.version = version;*/
 	}
 
 	public Result(T t) {
@@ -56,9 +56,9 @@ public class Result<T>{
 	}
 
 
-	public String getVersion() {
+/*	public String getVersion() {
 		return version;
-	}
+	}*/
 
 
 	public Integer getResult() {
@@ -74,9 +74,9 @@ public class Result<T>{
 		this.status = status;
 	}
 
-	public void setVersion(String version) {
+/*	public void setVersion(String version) {
 		this.version = version;
-	}
+	}*/
 
 	public void setResult(Integer result) {
 		this.result = result;
@@ -86,13 +86,13 @@ public class Result<T>{
 		this.desc = desc;
 	}
 
-	public String getVerificationCode() {
+/*	public String getVerificationCode() {
 		return verificationCode;
 	}
 
 	public void setVerificationCode(String verificationCode) {
 		this.verificationCode = verificationCode;
-	}
+	}*/
 
 	
 
